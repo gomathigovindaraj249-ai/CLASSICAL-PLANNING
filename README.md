@@ -46,3 +46,50 @@ print(plan)
 
 # Please Prepare Solution or Definition For the method find_plan(initial_state, goal_state, actions)
 <h3>You Can use any of the searching Strategies for planning and executing a sequence of actions.<br> You can also look in to the Code given in the Repository.</h3>
+
+# PROGRAM :
+
+```
+def find_plan(initial_state, goal_state, actions):
+    state = initial_state.copy()
+    plan = []
+
+    while state != goal_state:
+        found = False
+
+        for name, action in actions.items():
+            if all(state.get(k) == v for k, v in action['precondition'].items()):
+                state.update(action['effect'])
+                plan.append(name)
+                found = True
+                break
+
+        if not found:
+            break
+
+    return plan
+
+
+initial_state = {'A': 'Table', 'B': 'Table'}
+goal_state = {'A': 'B', 'B': 'Table'}
+
+actions = {
+    'move_A_to_B': {
+        'precondition': {'A': 'Table', 'B': 'Table'},
+        'effect': {'A': 'B'}
+    },
+    'move_B_to_Table': {
+        'precondition': {'A': 'Table', 'B': 'B'},
+        'effect': {'B': 'Table'}
+    }
+}
+
+plan = find_plan(initial_state, goal_state, actions)
+print("Plan:", plan)
+```
+# OUTPUT :
+
+![alt text](image.png)
+
+# RESULT :
+Thus, the Classical Planning Algorithm was successfully implemented using Python, and the plan to reach the goal state was generated successfully.
